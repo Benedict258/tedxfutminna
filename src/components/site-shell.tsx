@@ -25,6 +25,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       const timeout = setTimeout(() => setIntro(false), 1300);
       return () => clearTimeout(timeout);
     }
+    return undefined;
   }, []);
   useEffect(() => { document.documentElement.classList.toggle('dark', dark); localStorage.setItem('event-theme', dark ? 'dark' : 'light'); }, [dark]);
   useEffect(() => { document.documentElement.classList.toggle('reduce-motion', reduce); localStorage.setItem('event-reduce-motion', String(reduce)); }, [reduce]);
