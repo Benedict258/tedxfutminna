@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Website architecture
+- Use TanStack file routes for each content page and a shared SiteShell around the root Outlet; this keeps navigation and branding consistent.
+- Keep confirmed event constants and Nigeria date boundaries in src/lib/event.ts; this prevents inconsistent ticket prices and dates across pages.
+- Keep all wordmark uses in Wordmark and all motion primitives in event-motion.tsx; official brand files and approved assets can then replace stand-ins centrally.
+- Contact and newsletter forms remain explicitly demo-only until a connected submission service is requested; never imply an email was saved or sent.
