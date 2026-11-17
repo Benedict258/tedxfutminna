@@ -5,9 +5,10 @@ import { ArrowUpRight, Menu, Moon, Sun, X, Instagram, Linkedin } from 'lucide-re
 import { Button } from '@/components/ui/button';
 import { event, navigation, ticketPrice } from '@/lib/event';
 import { TicketButton } from './event-motion';
+import logoAsset from '@/assets/event-logo.png.asset.json';
 
 export function Wordmark() {
-  return <span className="wordmark"><span>TED<sup>x</sup></span>FUTMinna</span>;
+  return <span className="wordmark"><img src={logoAsset.url} alt="TEDxFUTMinna" width={241} height={48}/></span>;
 }
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = useRouterState({ select: state => state.location.pathname });
