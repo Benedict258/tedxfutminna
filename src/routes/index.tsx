@@ -1,23 +1,23 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowDown, ArrowUpRight, CalendarDays, MapPin, Mic2, Sparkles, Users, Play } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Countdown, DemoSignup, FlipCalendar, Reveal, Ribbon, SpeakerCards, TicketButton } from '@/components/event-motion';
+import { pageHead } from '@/lib/event';
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
+export const Route = createFileRoute('/')({
+  head: () => pageHead('Reimagining Tomorrow', 'Join TEDxFUTMinna 2026 on Saturday, 12 December. Eight speakers, seven fields, and ideas that shape what comes next. Tickets from ₦5,000.'),
+  component: Home,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+function Home() {
+  return <>
+    <section className="home-hero"><Ribbon/><div className="hero-inner"><Reveal className="hero-copy"><div className="eyebrow"><span className="red-dash"/> TEDxFUTMinna 2026 <span className="edition-tag">THIRD EDITION</span></div><h1>Reimagining<br/>Tomorrow<span className="headline-period">.</span></h1><p className="hero-subtitle">Shape it today.</p><p className="hero-description">Tomorrow isn’t something that happens to us.<br className="desktop-break"/> It’s built from the ideas we act on today.</p><div className="hero-meta"><span><CalendarDays size={17}/> Saturday, 12 December 2026</span><span><MapPin size={17}/> FUTMinna campus <small>· Exact venue revealed soon</small></span></div><div className="hero-buttons"><TicketButton large/><Button variant="editorial" size="hero" asChild><Link to="/schedule">See the Schedule <ArrowUpRight/></Link></Button></div><div className="hero-bottom-note"><span className="status-dot"/> 100 seats. Infinite possibilities.</div></Reveal><div className="hero-calendar"><FlipCalendar/><span className="calendar-annotation">A DATE WITH TOMORROW <span>↗</span></span></div></div><div className="hero-scroll"><ArrowDown size={15}/><span>THE FUTURE STARTS HERE</span></div></section>
+    <section className="countdown-band"><div><span className="eyebrow">THE COUNTDOWN IS ON</span><h2>A new tomorrow.<br/>One extraordinary day.</h2></div><Countdown/></section>
+    <div className="theme-marquee" aria-hidden="true"><div>{Array.from({ length: 4 }, (_, i) => <span key={i}>REIMAGINING TOMORROW <span className="marquee-star">✳</span> SHAPE IT TODAY <span className="marquee-star">✳</span> </span>)}</div></div>
+    <section className="section-wrap about-preview"><Reveal><span className="eyebrow">IDEAS THAT MOVE US</span><h2>Different perspectives.<br/>Shared possibilities.</h2></Reveal><Reveal><p className="large-body">A day to question what is, imagine what could be, and connect with the people shaping what comes next.</p><p>TEDx is a program of local, self-organized events that bring people together to share a TED-like experience. At TEDxFUTMinna 2026, ideas meet our community.</p><div className="inline-links"><Button variant="editorial" size="hero" asChild><Link to="/about">About this edition <ArrowUpRight/></Link></Button><a href="https://www.ted.com/tedx" target="_blank" rel="noopener noreferrer">The TEDx program <ArrowUpRight size={15}/></a></div></Reveal></section>
+    <section className="theme-story"><div className="section-wrap"><span className="eyebrow">OUR THEME · 2026</span><Reveal><h2>Tomorrow isn’t something<br/>that happens to us.<br/><span>It’s built from the ideas<br/>we act on today.</span></h2></Reveal><div className="theme-story-bottom"><span>Reimagining Tomorrow, Shape It Today.</span><ArrowUpRight size={48}/></div></div></section>
+    <section className="section-wrap expectation-section"><div className="section-heading"><div><span className="eyebrow">ONE DAY. MANY POSSIBILITIES.</span><h2>What’s waiting for you.</h2></div><span className="section-index">01 / THE EXPERIENCE</span></div><div className="expectation-grid">{[{ icon: Mic2, title: '8 voices. 7 fields.', text: 'Fresh perspectives from speakers across disciplines.' }, { icon: Play, title: 'Ideas on screen.', text: 'TED Talk screenings that open up new conversations.' }, { icon: Sparkles, title: 'Art in motion.', text: 'Poetry, spoken word and dance. Expression without limits.' }, { icon: Users, title: 'Meaningful connections.', text: 'Meet the people building what’s next.' }].map(item => <Reveal key={item.title}><div className="expectation-item"><item.icon size={25}/><h3>{item.title}</h3><p>{item.text}</p></div></Reveal>)}</div></section>
+    <section className="section-wrap speakers-preview"><div className="section-heading"><div><span className="eyebrow">THE VOICES OF TOMORROW</span><h2>Worth the wait.</h2><p>Speakers to be announced. New perspectives are on their way.</p></div><Button variant="editorial" asChild><Link to="/speakers">Meet the speakers <ArrowUpRight/></Link></Button></div><SpeakerCards count={4}/></section>
+    <section className="section-wrap past-preview"><span className="eyebrow">FROM PAST EDITIONS</span><div className="section-heading"><h2>The ideas live on.</h2><Button variant="editorial" asChild><Link to="/past-events">Past Events <ArrowUpRight/></Link></Button></div><div className="photo-pending"><span className="small-label">OUR COMMUNITY, IN FOCUS</span><p>Moments from past editions.<br/>Photo collection coming soon.</p></div></section>
+    <section className="section-wrap"><DemoSignup/></section>
+  </>;
 }
