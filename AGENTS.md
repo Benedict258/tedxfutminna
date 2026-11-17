@@ -35,3 +35,4 @@ use the editor.
 - Keep all wordmark uses in Wordmark and all motion primitives in event-motion.tsx; official brand files and approved assets can then replace stand-ins centrally.
 - Preserve uploaded branding pixels through alpha-bound cropping and CDN pointers; render the shared logo on solid white and select theme artwork by background so source lettering stays legible without recoloring.
 - Contact and newsletter forms remain explicitly demo-only until a connected submission service is requested; never imply an email was saved or sent.
+- Keep approved photo metadata and placement filtering in event-photos.ts and render all photo views with EventGallery; shared filtering prevents restricted photos leaking into other pages.

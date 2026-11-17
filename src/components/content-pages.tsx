@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { ArrowUpRight, CalendarDays, MapPin, Clock, Mail, Check, Plus, Minus, Image, Users } from 'lucide-react';
+import { ArrowUpRight, CalendarDays, MapPin, Clock, Mail, Check, Plus, Minus, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Countdown, DemoSignup, Reveal, SpeakerCards, TicketButton } from './event-motion';
 import { event } from '@/lib/event';
+import { EventGallery } from './event-gallery';
 
 export function PageIntro({ label, title, description }: { label: string; title: string; description: string }) {
   return <section className="page-intro section-wrap"><Reveal><span className="eyebrow"><span className="red-dash"/>{label}</span><h1>{title}</h1><p>{description}</p></Reveal></section>;
@@ -27,7 +28,7 @@ export function TeamPage() {
  return <><PageIntro label="THE PEOPLE BEHIND THE DAY" title="Made possible by people." description="Meet the core team behind TEDxFUTMinna 2026. Names, roles and backgrounds will be announced soon."/><section className="section-wrap"><div className="announcement-panel"><Users size={36}/><h2>Our core team, coming soon.</h2><p>Team profiles will include a photo, role and a short background<br/>once the organizers have confirmed their details.</p></div></section></>;
 }
 export function PhotosPage({ gallery = false }: { gallery?: boolean }) {
- return <><PageIntro label={gallery?'MOMENTS THAT STAY WITH US':'FROM PAST EDITIONS'} title={gallery?'Our community, in focus.':'The ideas live on.'} description={gallery?'The TEDxFUTMinna photo collection. Real people. Real moments.':'A look back at the stages, voices and conversations of earlier TEDxFUTMinna editions.'}/><section className="section-wrap"><div className="photo-pending photo-page"><Image size={36}/><h2>Photo collection coming soon.</h2><p>Approved photos from past editions will be added here.</p></div></section></>;
+  return <><PageIntro label={gallery?'MOMENTS THAT STAY WITH US':'FROM PAST EDITIONS'} title={gallery?'Our community, in focus.':'The ideas live on.'} description={gallery?'The TEDxFUTMinna photo collection. Real people. Real moments.':'A look back at the stages, voices and conversations of earlier TEDxFUTMinna editions.'}/><section className="section-wrap"><EventGallery placement={gallery ? 'gallery' : 'past'}/></section></>;
 }
 const faqs = [
  ['When is TEDxFUTMinna 2026?','Saturday, 12 December 2026. The start time has not yet been confirmed.'],

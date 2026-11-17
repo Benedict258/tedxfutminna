@@ -5,6 +5,7 @@ import { Countdown, DemoSignup, FlipCalendar, Reveal, Ribbon, SpeakerCards, Tick
 import { pageHead } from '@/lib/event';
 import themeLight from '@/assets/theme-light-lettering.png.asset.json';
 import themeDark from '@/assets/theme-dark-lettering.png.asset.json';
+import { EventGallery } from '@/components/event-gallery';
 
 export const Route = createFileRoute('/')({
   head: () => pageHead('Reimagining Tomorrow', 'Join TEDxFUTMinna 2026 on Saturday, 12 December. Eight speakers, seven fields, and ideas that shape what comes next. Tickets from ₦5,000.'),
@@ -19,7 +20,7 @@ function Home() {
     <section className="theme-story official-theme-story"><div className="section-wrap"><span className="eyebrow">OUR THEME · 2026</span><Reveal className="official-theme-art"><img className="theme-for-light" src={themeDark.url} alt="Reimagining Tomorrow — Shape It Today" width={656} height={442} loading="lazy"/><img className="theme-for-dark" src={themeLight.url} alt="Reimagining Tomorrow — Shape It Today" width={656} height={442} loading="lazy"/></Reveal><div className="theme-story-bottom"><span>Tomorrow isn’t something that happens to us.<br/>It’s built from the ideas we act on today.</span><ArrowUpRight size={48}/></div></div></section>
     <section className="section-wrap expectation-section"><div className="section-heading"><div><span className="eyebrow">ONE DAY. MANY POSSIBILITIES.</span><h2>What’s waiting for you.</h2></div><span className="section-index">01 / THE EXPERIENCE</span></div><div className="expectation-grid">{[{ icon: Mic2, title: '8 voices. 7 fields.', text: 'Fresh perspectives from speakers across disciplines.' }, { icon: Play, title: 'Ideas on screen.', text: 'TED Talk screenings that open up new conversations.' }, { icon: Sparkles, title: 'Art in motion.', text: 'Poetry, spoken word and dance. Expression without limits.' }, { icon: Users, title: 'Meaningful connections.', text: 'Meet the people building what’s next.' }].map(item => <Reveal key={item.title}><div className="expectation-item"><item.icon size={25}/><h3>{item.title}</h3><p>{item.text}</p></div></Reveal>)}</div></section>
     <section className="section-wrap speakers-preview"><div className="section-heading"><div><span className="eyebrow">THE VOICES OF TOMORROW</span><h2>Worth the wait.</h2><p>Speakers to be announced. New perspectives are on their way.</p></div><Button variant="editorial" asChild><Link to="/speakers">Meet the speakers <ArrowUpRight/></Link></Button></div><SpeakerCards count={4}/></section>
-    <section className="section-wrap past-preview"><span className="eyebrow">FROM PAST EDITIONS</span><div className="section-heading"><h2>The ideas live on.</h2><Button variant="editorial" asChild><Link to="/past-events">Past Events <ArrowUpRight/></Link></Button></div><div className="photo-pending"><span className="small-label">OUR COMMUNITY, IN FOCUS</span><p>Moments from past editions.<br/>Photo collection coming soon.</p></div></section>
+    <section className="section-wrap past-preview"><span className="eyebrow">FROM PAST EDITIONS</span><div className="section-heading"><h2>The ideas live on.</h2><Button variant="editorial" asChild><Link to="/past-events">Past Events <ArrowUpRight/></Link></Button></div><EventGallery placement="home"/></section>
     <section className="section-wrap"><DemoSignup/></section>
   </>;
 }

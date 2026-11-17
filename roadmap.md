@@ -5,7 +5,7 @@
 - [x] Process photo batch 01 and prepare contact sheets for approval.
 - [x] Process five additional photos as batch 02 and prepare review sheets.
 - [x] Place uploaded official logo and both theme artwork variants, and derive the favicon from the logo.
-- [ ] Add approved real event photos (batches 01 and 02 awaiting approval; remaining photos awaiting organizer).
+- [x] Add both approved real photo batches to Home, Past Events and Gallery with Gallery-only restrictions.
 - [x] Keep contact details and forms in demo mode as requested.
 - [ ] Add core team and sponsors once supplied (waiting on organizer).
 - [ ] Verify the current official About TED/TEDx text (organizer guide unavailable; awaiting authoritative wording).
