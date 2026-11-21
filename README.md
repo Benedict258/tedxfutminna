@@ -34,16 +34,20 @@ npm test          # Vitest unit tests
 
 ```sh
 npm run build     # production build (Nitro preset: vercel)
-npm run preview   # serve the production build locally
+npm run preview   # http://127.0.0.1:4173
 ```
+
+`npm run preview` serves the Nitro output in `.vercel/output`. Run `npm run build` first. `vite preview` looks for `dist/server/server.js`, which this preset does not emit, so the preview script in `tools/preview.mjs` serves the static files and then the server function.
 
 ## Deploy
 
-The production build uses the Nitro `vercel` preset already configured in `vite.config.ts`. The public domain is not chosen yet.
+The production build uses the Nitro `vercel` preset already configured in `vite.config.ts`. The public domain is not decided. Host is not confirmed; the preset stays `vercel`.
 
-1. Import the repository in the host (on Vercel, framework preset: **Other**).
-2. Build command: `npm run build`. Output: `.vercel/output` when the host reads the Nitro build.
-3. Set `VITE_SITE_URL` in the host's environment settings, then deploy. The site builds when that value is missing; canonical URLs, the sitemap, `robots.txt` and event structured data gain the origin only after it is set.
+Vercel’s current TanStack Start and Nitro docs deploy this setup with zero configuration. Leave **Output Directory** at the framework default. Do not set it to `.vercel/output`. Nitro already writes the Build Output API there, and Vercel reads that itself when the framework is detected. The Output Directory field is for a static folder (the docs say a detected framework configures it automatically; “Other” serves `public` or the repo root as static files).
+
+1. Import `Benedict258/tedxfutminna` and select the `cursor-cleanup` branch for a preview deployment.
+2. Framework preset: **TanStack Start** (Nitro is also listed). Build command: `npm run build`. Leave Output Directory unset.
+3. Set `VITE_SITE_URL` in the host's environment settings when a domain exists. The site builds when that value is missing; canonical URLs, the sitemap, `robots.txt` and event structured data gain the origin only after it is set.
 
 ## Environment variables
 

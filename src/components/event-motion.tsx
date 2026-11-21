@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Check, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { event, remainingTime } from "@/lib/event";
@@ -48,8 +48,18 @@ export function Reveal({
   );
 }
 export function Ribbon() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      el.classList.toggle("is-paused", !entry?.isIntersecting);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
   return (
-    <div className="ribbon-art" aria-hidden="true">
+    <div ref={ref} className="ribbon-art" aria-hidden="true">
       <svg viewBox="0 0 1000 800" fill="none">
         <defs>
           <linearGradient
@@ -110,6 +120,26 @@ export function FlipCalendar() {
     </div>
   );
 }
+const countdownLabels = ["Days", "Hours", "Minutes", "Seconds"] as const;
+
+const CountdownUnit = memo(function CountdownUnit({
+  value,
+  label,
+}: {
+  value: number | null;
+  label: string;
+}) {
+  const text = value === null ? "—" : String(value).padStart(2, "0");
+  return (
+    <div className="countdown-unit">
+      <div className="countdown-digit">
+        <span key={text}>{text}</span>
+      </div>
+      <span className="countdown-label">{label}</span>
+    </div>
+  );
+});
+
 export function Countdown({ early = false }: { early?: boolean }) {
   const [now, setNow] = useState<number | null>(null);
   useEffect(() => {
@@ -126,13 +156,8 @@ export function Countdown({ early = false }: { early?: boolean }) {
       className={`countdown ${early ? "countdown-small" : ""}`}
       aria-label={early ? "Time until Early Bird closes" : "Countdown to the event date"}
     >
-      {values.map((value, i) => (
-        <div className="countdown-unit" key={i}>
-          <div className="countdown-digit">
-            <span key={value}>{value === null ? "—" : String(value).padStart(2, "0")}</span>
-          </div>
-          <span className="countdown-label">{["Days", "Hours", "Minutes", "Seconds"][i]}</span>
-        </div>
+      {countdownLabels.map((label, i) => (
+        <CountdownUnit key={label} value={values[i] ?? null} label={label} />
       ))}
     </div>
   );

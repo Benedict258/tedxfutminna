@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowDown,
@@ -22,7 +23,9 @@ import {
 import { event, eventOffers, pageHead, siteUrl } from "@/lib/event";
 import themeLight from "@/assets/theme-light-lettering.png";
 import themeDark from "@/assets/theme-dark-lettering.png";
-import { EventGallery } from "@/components/event-gallery";
+const EventGallery = lazy(() =>
+  import("@/components/event-gallery").then((module) => ({ default: module.EventGallery })),
+);
 
 // Structured data for the event. Start time is intentionally left out until confirmed.
 const eventStructuredData = {
@@ -109,7 +112,7 @@ function Home() {
           <span>THE FUTURE STARTS HERE</span>
         </div>
       </section>
-      <section className="countdown-band">
+      <section className="countdown-band defer-paint">
         <div>
           <span className="eyebrow">THE COUNTDOWN IS ON</span>
           <h2>
@@ -120,7 +123,7 @@ function Home() {
         </div>
         <Countdown />
       </section>
-      <div className="theme-marquee" aria-hidden="true">
+      <div className="theme-marquee defer-paint" aria-hidden="true">
         <div>
           {Array.from({ length: 4 }, (_, i) => (
             <span key={i}>
@@ -130,7 +133,7 @@ function Home() {
           ))}
         </div>
       </div>
-      <section className="section-wrap about-preview">
+      <section className="section-wrap about-preview defer-paint">
         <Reveal>
           <span className="eyebrow">IDEAS THAT MOVE US</span>
           <h2>
@@ -160,7 +163,7 @@ function Home() {
           </div>
         </Reveal>
       </section>
-      <section className="theme-story official-theme-story">
+      <section className="theme-story official-theme-story defer-paint">
         <div className="section-wrap">
           <span className="eyebrow">OUR THEME · 2026</span>
           <Reveal className="official-theme-art">
@@ -191,7 +194,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="section-wrap expectation-section">
+      <section className="section-wrap expectation-section defer-paint">
         <div className="section-heading">
           <div>
             <span className="eyebrow">ONE DAY. MANY POSSIBILITIES.</span>
@@ -232,7 +235,7 @@ function Home() {
           ))}
         </div>
       </section>
-      <section className="section-wrap speakers-preview">
+      <section className="section-wrap speakers-preview defer-paint">
         <div className="section-heading">
           <div>
             <span className="eyebrow">THE VOICES OF TOMORROW</span>
@@ -247,7 +250,7 @@ function Home() {
         </div>
         <SpeakerCards count={4} />
       </section>
-      <section className="section-wrap past-preview">
+      <section className="section-wrap past-preview defer-paint">
         <span className="eyebrow">FROM PAST EDITIONS</span>
         <div className="section-heading">
           <h2>The ideas live on.</h2>
@@ -257,9 +260,11 @@ function Home() {
             </Link>
           </Button>
         </div>
-        <EventGallery placement="home" />
+        <Suspense fallback={null}>
+          <EventGallery placement="home" />
+        </Suspense>
       </section>
-      <section className="section-wrap">
+      <section className="section-wrap defer-paint">
         <DemoSignup />
       </section>
     </>
