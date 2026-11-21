@@ -1,8 +1,5 @@
-node_modules
+.vercel
 dist
 .output
-.vinxi
-pnpm-lock.yaml
+node_modules
 package-lock.json
-bun.lock
-routeTree.gen.ts
