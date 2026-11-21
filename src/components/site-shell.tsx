@@ -9,7 +9,7 @@ import logoAsset from "@/assets/event-logo.png";
 export function Wordmark() {
   return (
     <span className="wordmark">
-      <img src={logoAsset} alt="TEDxFUTMinna" width={241} height={48} />
+      <img src={logoAsset} alt="TEDxFUTMinna" width={241} height={48} fetchPriority="high" />
     </span>
   );
 }

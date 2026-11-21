@@ -46,3 +46,12 @@ Uncommitted work was saved on `pre-cursor-snapshot` before this cleanup. That co
 - Restored `routeTree.gen.ts` in `.prettierignore` — that file is generated and should not be reformatted by hand.
 - Upgraded `vite` from 8.1.5 to 8.3.8 — 8.1.5 was inside the Windows launch-editor advisory range, and the newer release reports no advisories.
 - Added the `.ts` extension on the Vite config import of `site-url` — Vite 8.3 warns that the native config loader will reject an extensionless import.
+- Set `fetchpriority="high"` on the wordmark and its preload — on Tickets and Gallery that image is the largest paint, and it was requested at low priority. It is already a 7 KB PNG with width and height, and it is not lazy-loaded.
+- Removed `tailwind-merge` and `clsx`, and stopped merging button classes a second time — `cva` already joins them, and the merger was inside the first JavaScript file.
+- Load the dialog animation stylesheet with the lightbox — those keyframes run only after a photo is opened, so they no longer block the first paint.
+- Load the home photo grid in its own chunk — the grid sits below the first screen, and the lightbox was already separate.
+- Removed the 4 second reveal failsafe — that delayed animation forced a late restyle. Visitors without JavaScript still see the content through the `noscript` rule.
+- Skip layout for home sections below the first screen until they near the viewport, and pause the ribbon animation once it scrolls away — the ribbon already moves with transform only.
+- Update a countdown digit only when its value changes — the other three digits no longer re-render every second.
+- Serve the production build with `npm run preview` — `vite preview` expects `dist/server/server.js`, and the Nitro `vercel` preset does not emit that file.
+- Document that Vercel’s Output Directory stays at the framework default — current Vercel docs configure it automatically for TanStack Start and Nitro, and `.vercel/output` is the Build Output API, not a static folder to type into that field.

@@ -114,7 +114,7 @@ export const Route = createRootRoute({
         crossOrigin: "anonymous",
       },
       // The header wordmark is the first image painted on every page.
-      { rel: "preload", href: logoAsset, as: "image" },
+      { rel: "preload", href: logoAsset, as: "image", fetchPriority: "high" },
       {
         rel: "stylesheet",
         href: appCss,
