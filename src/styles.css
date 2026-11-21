@@ -277,6 +277,18 @@
   width: 205px;
   height: auto;
 }
+.wordmark .logo-for-dark {
+  display: none;
+}
+.dark .wordmark {
+  background: var(--solid-black);
+}
+.dark .wordmark .logo-for-light {
+  display: none;
+}
+.dark .wordmark .logo-for-dark {
+  display: block;
+}
 .theme-story.official-theme-story {
   background: var(--background);
   color: var(--foreground);

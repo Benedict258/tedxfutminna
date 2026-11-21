@@ -58,3 +58,4 @@ Uncommitted work was saved on `pre-cursor-snapshot` before this cleanup. That co
 - Answer `GET /health` with plain text before the page renderer — a keep-awake ping should not build the homepage.
 - Listen on `0.0.0.0` in the preview server — Render only routes public traffic to that address, and `127.0.0.1` is unreachable from its proxy.
 - Ping `PING_URL` every 5 minutes from GitHub Actions — a free Render web service sleeps after a stretch with no requests.
+- Show the red-and-white wordmark in dark mode — the light logo sits on a white chip, and that artwork is white lettering on black.

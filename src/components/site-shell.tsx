@@ -5,11 +5,26 @@ import { Button } from "@/components/ui/button";
 import { event, navigation, ticketPrice } from "@/lib/event";
 import { TicketButton } from "./event-motion";
 import logoAsset from "@/assets/event-logo.png";
+import logoDarkAsset from "@/assets/event-logo-dark.png";
 
 export function Wordmark() {
   return (
     <span className="wordmark">
-      <img src={logoAsset} alt="TEDxFUTMinna" width={241} height={48} fetchPriority="high" />
+      <img
+        className="logo-for-light"
+        src={logoAsset}
+        alt="TEDxFUTMinna"
+        width={241}
+        height={48}
+        fetchPriority="high"
+      />
+      <img
+        className="logo-for-dark"
+        src={logoDarkAsset}
+        alt="TEDxFUTMinna"
+        width={885}
+        height={126}
+      />
     </span>
   );
 }
