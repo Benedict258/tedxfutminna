@@ -1,0 +1,20 @@
+name: Keep the site awake
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping /health
+        env:
+          PING_URL: ${{ vars.PING_URL }}
+        run: |
+          if [ -z "$PING_URL" ]; then
+            echo "Set the PING_URL repository variable to https://<service>.onrender.com/health"
+            exit 0
+          fi
+          curl --fail --silent --show-error --retry 2 --max-time 60 "$PING_URL"
