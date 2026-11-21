@@ -1,18 +1,97 @@
-// @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually
-// or the app will break with duplicate plugins:
-//   - TanStack devtools (dev-only, first), tanstackStart, viteReact, tailwindcss, tsConfigPaths,
-//     nitro (build-only using cloudflare as a default target), VITE_* env injection, @ path alias,
-//     React/TanStack dedupe, error logger plugins, and sandbox detection (port/host/strictPort).
-// Never set ssr.external or resolve.external: the Worker has no runtime module resolution, so
-// the build fails. Never add compression (compressPublicAssets, vite-plugin-compression):
-// hosting already compresses at the edge.
-// You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { readFileSync, writeFileSync } from "node:fs";
+import { defineConfig, loadEnv, type Plugin } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import tsConfigPaths from "vite-tsconfig-paths";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { nitro } from "nitro/vite";
+import { normalizeSiteUrl, robotsTxt, sitemapXml } from "./src/lib/site-url.ts";
 
-export default defineConfig({
-  tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
-  },
+function writeIfChanged(file: string, contents: string) {
+  let current = "";
+  try {
+    current = readFileSync(file, "utf8");
+  } catch {
+    current = "";
+  }
+  if (current.replace(/\r\n/g, "\n") === contents) return;
+  writeFileSync(file, contents);
+}
+
+function crawlFiles(origin: string): Plugin {
+  const write = () => {
+    writeIfChanged("public/sitemap.xml", sitemapXml(origin));
+    writeIfChanged("public/robots.txt", robotsTxt(origin));
+  };
+  return {
+    name: "crawl-files",
+    buildStart: write,
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const path = req.url?.split("?")[0];
+        if (path === "/sitemap.xml") {
+          res.setHeader("content-type", "application/xml; charset=utf-8");
+          res.end(sitemapXml(origin));
+          return;
+        }
+        if (path === "/robots.txt") {
+          res.setHeader("content-type", "text/plain; charset=utf-8");
+          res.end(robotsTxt(origin));
+          return;
+        }
+        next();
+      });
+    },
+  };
+}
+
+export default defineConfig(({ command, mode }) => {
+  // Inline VITE_* env vars so they resolve in the server bundle too.
+  const loadedEnv = loadEnv(mode, process.cwd(), "VITE_");
+  const origin = normalizeSiteUrl(loadedEnv["VITE_SITE_URL"]);
+  const envDefine = Object.fromEntries(
+    Object.entries(loadedEnv).map(([key, value]) => [
+      `import.meta.env.${key}`,
+      JSON.stringify(value),
+    ]),
+  );
+
+  return {
+    define: envDefine,
+    css: { transformer: "lightningcss" },
+    resolve: {
+      alias: { "@": `${process.cwd()}/src` },
+      dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
+    },
+    optimizeDeps: {
+      include: [
+        "react",
+        "react-dom",
+        "react-dom/client",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+      ],
+    },
+    server: { host: "::", port: 8080 },
+    plugins: [
+      crawlFiles(origin),
+      tailwindcss(),
+      tsConfigPaths({ projects: ["./tsconfig.json"] }),
+      tanstackStart({
+        // Keep server-only modules out of the client bundle.
+        importProtection: {
+          behavior: "error",
+          client: {
+            files: ["**/server/**"],
+            specifiers: ["server-only"],
+          },
+        },
+        // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
+        server: { entry: "server" },
+      }),
+      // Production builds target Vercel (SSR function + static assets).
+      command === "build" && nitro({ preset: "vercel" }),
+      react(),
+    ],
+  };
 });

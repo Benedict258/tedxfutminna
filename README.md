@@ -1,24 +1,63 @@
-# TedxFutminna
+# TEDxFUTMinna 2026
 
-Implement exactly the screenshot and nothing else
+Official website for **TEDxFUTMinna 2026 — “Reimagining Tomorrow, Shape It Today.”** The event takes place on **Saturday, 12 December 2026** at the FUTMinna campus.
 
-This project was built with [Lovable](https://lovable.dev).
+Built with [TanStack Start](https://tanstack.com/start) (React 19, Vite, Tailwind CSS 4) and server-rendered by [Nitro](https://nitro.build/).
 
-## Build with Lovable
+## Requirements
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/238431c2-e72a-45a6-b848-1d404a0a3c17).
+- Node.js 20+ (npm is the package manager used in this repository)
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Install
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm install
+```
+
+## Develop
+
+```sh
 npm run dev
 ```
+
+The dev server runs on [http://localhost:8080](http://localhost:8080).
+
+## Check
+
+```sh
+npm run lint      # ESLint
+npx tsc --noEmit  # type-check
+npm test          # Vitest unit tests
+```
+
+## Build and preview
+
+```sh
+npm run build     # production build (Nitro preset: vercel)
+npm run preview   # serve the production build locally
+```
+
+## Deploy
+
+The production build uses the Nitro `vercel` preset already configured in `vite.config.ts`. The public domain is not chosen yet.
+
+1. Import the repository in the host (on Vercel, framework preset: **Other**).
+2. Build command: `npm run build`. Output: `.vercel/output` when the host reads the Nitro build.
+3. Set `VITE_SITE_URL` in the host's environment settings, then deploy. The site builds when that value is missing; canonical URLs, the sitemap, `robots.txt` and event structured data gain the origin only after it is set.
+
+## Environment variables
+
+No environment variables are required to run the site. Optional values can be set in a local `.env` file (never commit it); see `.env.example` for the names.
+
+| Name              | Purpose                                                                                                 |
+| ----------------- | ------------------------------------------------------------------------------------------------------- |
+| `VITE_SITE_URL`   | Public site origin. Set `VITE_SITE_URL` in the host's environment settings before a public deploy.     |
+| `VITE_TICKET_URL` | Overrides the ticket checkout URL (defaults to the confirmed Selar link baked into `src/lib/event.ts`). |
+
+## Project layout
+
+- `src/routes/` — TanStack file routes (one file per page) wrapped by a shared `SiteShell`.
+- `src/lib/event.ts` — confirmed event constants (date boundaries, prices, navigation).
+- `src/lib/event-photos.ts` — approved photo metadata and placement rules.
+- `src/components/` — shared shell, motion primitives and gallery.
+- `public/` — favicon, robots.txt, sitemap.xml, Open Graph image.

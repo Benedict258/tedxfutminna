@@ -1,53 +1,474 @@
-import { useState } from 'react';
-import { ArrowUpRight, CalendarDays, MapPin, Clock, Mail, Check, Plus, Minus, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Countdown, DemoSignup, Reveal, SpeakerCards, TicketButton } from './event-motion';
-import { event } from '@/lib/event';
-import { EventGallery } from './event-gallery';
+import { useState } from "react";
+import {
+  ArrowUpRight,
+  CalendarDays,
+  MapPin,
+  Clock,
+  Mail,
+  Check,
+  Plus,
+  Minus,
+  Users,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Countdown, DemoSignup, Reveal, SpeakerCards, TicketButton } from "./event-motion";
+import { event } from "@/lib/event";
+import { EventGallery } from "./event-gallery";
 
-export function PageIntro({ label, title, description }: { label: string; title: string; description: string }) {
-  return <section className="page-intro section-wrap"><Reveal><span className="eyebrow"><span className="red-dash"/>{label}</span><h1>{title}</h1><p>{description}</p></Reveal></section>;
+export function PageIntro({
+  label,
+  title,
+  description,
+}: {
+  label: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <section className="page-intro section-wrap">
+      <Reveal>
+        <span className="eyebrow">
+          <span className="red-dash" />
+          {label}
+        </span>
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </Reveal>
+    </section>
+  );
 }
 export function TicketsPage() {
-  return <><PageIntro label="YOUR SEAT AT THE TABLE" title="Be part of tomorrow." description="Saturday, 12 December 2026 · FUTMinna campus · 100 seats"/><section className="section-wrap ticket-layout"><div className="ticket-grid"><Reveal><article className="ticket-card featured"><span className="ticket-label">EARLY BIRD</span><h2>₦5,000</h2><p>Until 2 December 2026</p><div className="ticket-rule"/><ul><li><Check/> A seat at TEDxFUTMinna 2026</li><li><Check/> 8 speakers from 7 fields</li><li><Check/> TED Talk screenings & performances</li><li><Check/> A day of meaningful connections</li></ul><TicketButton large/><span className="ticket-note">A small processing fee is added at checkout.</span></article></Reveal><Reveal><article className="ticket-card"><span className="ticket-label">REGULAR</span><h2>₦7,500</h2><p>After Early Bird closes</p><div className="ticket-rule"/><ul><li><Check/> A seat at TEDxFUTMinna 2026</li><li><Check/> 8 speakers from 7 fields</li><li><Check/> TED Talk screenings & performances</li><li><Check/> A day of meaningful connections</li></ul><TicketButton large/><span className="ticket-note">A small processing fee is added at checkout.</span></article></Reveal></div><div className="ticket-countdown"><span className="eyebrow">EARLY BIRD CLOSES IN</span><Countdown early/><p>Reimagining Tomorrow, Shape It Today.</p></div></section></>;
+  return (
+    <>
+      <PageIntro
+        label="YOUR SEAT AT THE TABLE"
+        title="Be part of tomorrow."
+        description="Saturday, 12 December 2026 · FUTMinna campus · 100 seats"
+      />
+      <section className="section-wrap ticket-layout">
+        <div className="ticket-grid">
+          <Reveal>
+            <article className="ticket-card featured">
+              <span className="ticket-label">EARLY BIRD</span>
+              <h2>₦5,000</h2>
+              <p>Until 2 December 2026</p>
+              <div className="ticket-rule" />
+              <ul>
+                <li>
+                  <Check /> A seat at TEDxFUTMinna 2026
+                </li>
+                <li>
+                  <Check /> 8 speakers from 7 fields
+                </li>
+                <li>
+                  <Check /> TED Talk screenings & performances
+                </li>
+                <li>
+                  <Check /> A day of meaningful connections
+                </li>
+              </ul>
+              <TicketButton large />
+              <span className="ticket-note">A small processing fee is added at checkout.</span>
+            </article>
+          </Reveal>
+          <Reveal>
+            <article className="ticket-card">
+              <span className="ticket-label">REGULAR</span>
+              <h2>₦7,500</h2>
+              <p>After Early Bird closes</p>
+              <div className="ticket-rule" />
+              <ul>
+                <li>
+                  <Check /> A seat at TEDxFUTMinna 2026
+                </li>
+                <li>
+                  <Check /> 8 speakers from 7 fields
+                </li>
+                <li>
+                  <Check /> TED Talk screenings & performances
+                </li>
+                <li>
+                  <Check /> A day of meaningful connections
+                </li>
+              </ul>
+              <TicketButton large />
+              <span className="ticket-note">A small processing fee is added at checkout.</span>
+            </article>
+          </Reveal>
+        </div>
+        <div className="ticket-countdown">
+          <span className="eyebrow">EARLY BIRD CLOSES IN</span>
+          <Countdown early />
+          <p>Reimagining Tomorrow, Shape It Today.</p>
+        </div>
+      </section>
+    </>
+  );
 }
 export function SpeakersPage() {
- return <><PageIntro label="8 SPEAKERS · 7 FIELDS" title="The voices are coming." description="Speakers to be announced. The voices of TEDxFUTMinna 2026 will be revealed soon."/><section className="section-wrap"><SpeakerCards/></section><section className="section-wrap"><DemoSignup label="Be first to meet them."/></section></>;
+  return (
+    <>
+      <PageIntro
+        label="8 SPEAKERS · 7 FIELDS"
+        title="The voices are coming."
+        description="Speakers to be announced. The voices of TEDxFUTMinna 2026 will be revealed soon."
+      />
+      <section className="section-wrap">
+        <SpeakerCards />
+      </section>
+      <section className="section-wrap">
+        <DemoSignup label="Be first to meet them." />
+      </section>
+    </>
+  );
 }
 export function SchedulePage() {
- return <><PageIntro label="SATURDAY, 12 DECEMBER 2026" title="A day worth clearing." description="Schedule to be announced. The full programme will be published here."/><section className="section-wrap"><div className="announcement-panel"><Clock size={36}/><h2>Good things are taking shape.</h2><p>Talks, screenings, poetry, spoken word, dance and conversations.<br/>Session times will be announced when the programme is confirmed.</p><div className="announcement-meta"><span><CalendarDays size={18}/>{event.date}</span><span><MapPin size={18}/>Exact venue: to be announced</span></div><TicketButton large/></div></section></>;
+  return (
+    <>
+      <PageIntro
+        label="SATURDAY, 12 DECEMBER 2026"
+        title="A day worth clearing."
+        description="Schedule to be announced. The full programme will be published here."
+      />
+      <section className="section-wrap">
+        <div className="announcement-panel">
+          <Clock size={36} />
+          <h2>Good things are taking shape.</h2>
+          <p>
+            Talks, screenings, poetry, spoken word, dance and conversations.
+            <br />
+            Session times will be announced when the programme is confirmed.
+          </p>
+          <div className="announcement-meta">
+            <span>
+              <CalendarDays size={18} />
+              {event.date}
+            </span>
+            <span>
+              <MapPin size={18} />
+              Exact venue: to be announced
+            </span>
+          </div>
+          <TicketButton large />
+        </div>
+      </section>
+    </>
+  );
 }
 export function AboutPage() {
- const [tab, setTab] = useState('edition');
- return <><PageIntro label="LOCAL IDEAS. GLOBAL POSSIBILITIES." title="A space for what’s next." description="TEDxFUTMinna 2026 · Third edition · Minna, Nigeria"/><section className="section-wrap about-content"><div className="content-tabs" role="tablist" aria-label="About sections">{[{id:'edition',label:'This edition'},{id:'tedx',label:'About TEDx'},{id:'ted',label:'About TED'}].map(t => <Button key={t.id} role="tab" aria-selected={tab===t.id} variant={tab===t.id?'ticket':'ghost'} onClick={()=>setTab(t.id)}>{t.label}</Button>)}</div><div role="tabpanel">{tab==='edition' ? <div className="about-columns"><div><span className="eyebrow">REIMAGINING TOMORROW, SHAPE IT TODAY</span><h2>Ideas begin with us.</h2><p className="large-body">“Tomorrow isn’t something that happens to us. It’s built from the ideas we act on today.”</p><p>On Saturday, 12 December 2026, TEDxFUTMinna 2026 brings eight speakers from seven fields to FUTMinna campus for the third edition.</p><p>Expect TED Talk screenings, poetry, spoken word, dance and networking with people building what’s next.</p><TicketButton large/></div><dl className="event-facts"><div><dt>DATE</dt><dd>Saturday, 12 December 2026</dd></div><div><dt>LOCATION</dt><dd>FUTMinna campus, Minna, Nigeria</dd></div><div><dt>VENUE & START TIME</dt><dd>To be announced</dd></div><div><dt>EDITION</dt><dd>Third edition</dd></div></dl></div> : tab==='tedx' ? <div className="prose-content"><h2>About TEDx</h2><p>In the spirit of ideas worth spreading, TEDx is a program of local, self-organized events that bring people together to share a TED-like experience. At a TEDx event, TED Talks video and live speakers combine to spark deep discussion and connection in a small group. These local, self-organized events are branded TEDx, where x = independently organized TED event. The TED Conference provides general guidance for the TEDx program, but individual TEDx events are self-organized. (Subject to certain rules and regulations.)</p><a href="https://www.ted.com/tedx" target="_blank" rel="noopener noreferrer">Explore the TEDx program <ArrowUpRight size={16}/></a><p className="form-note">Official organizer wording will be checked against the current TED organizer guide before launch.</p></div> : <div className="prose-content"><h2>About TED</h2><p>Read about TED’s mission, programs and global community on its official website.</p><a href="https://www.ted.com/about/our-organization" target="_blank" rel="noopener noreferrer">About TED <ArrowUpRight size={16}/></a><p className="form-note">Official About TED text is pending verification from the organizer guide.</p></div>}</div></section></>;
+  const [tab, setTab] = useState("edition");
+  return (
+    <>
+      <PageIntro
+        label="LOCAL IDEAS. GLOBAL POSSIBILITIES."
+        title="A space for what’s next."
+        description="TEDxFUTMinna 2026 · Third edition · Minna, Nigeria"
+      />
+      <section className="section-wrap about-content">
+        <div className="content-tabs" role="tablist" aria-label="About sections">
+          {[
+            { id: "edition", label: "This edition" },
+            { id: "tedx", label: "About TEDx" },
+            { id: "ted", label: "About TED" },
+          ].map((t) => (
+            <Button
+              key={t.id}
+              role="tab"
+              aria-selected={tab === t.id}
+              variant={tab === t.id ? "ticket" : "ghost"}
+              onClick={() => setTab(t.id)}
+            >
+              {t.label}
+            </Button>
+          ))}
+        </div>
+        <div role="tabpanel">
+          {tab === "edition" ? (
+            <div className="about-columns">
+              <div>
+                <span className="eyebrow">REIMAGINING TOMORROW, SHAPE IT TODAY</span>
+                <h2>Ideas begin with us.</h2>
+                <p className="large-body">
+                  “Tomorrow isn’t something that happens to us. It’s built from the ideas we act on
+                  today.”
+                </p>
+                <p>
+                  On Saturday, 12 December 2026, TEDxFUTMinna 2026 brings eight speakers from seven
+                  fields to FUTMinna campus for the third edition.
+                </p>
+                <p>
+                  Expect TED Talk screenings, poetry, spoken word, dance and networking with people
+                  building what’s next.
+                </p>
+                <TicketButton large />
+              </div>
+              <dl className="event-facts">
+                <div>
+                  <dt>DATE</dt>
+                  <dd>Saturday, 12 December 2026</dd>
+                </div>
+                <div>
+                  <dt>LOCATION</dt>
+                  <dd>FUTMinna campus, Minna, Nigeria</dd>
+                </div>
+                <div>
+                  <dt>VENUE & START TIME</dt>
+                  <dd>To be announced</dd>
+                </div>
+                <div>
+                  <dt>EDITION</dt>
+                  <dd>Third edition</dd>
+                </div>
+              </dl>
+            </div>
+          ) : tab === "tedx" ? (
+            <div className="prose-content">
+              <h2>About TEDx</h2>
+              <p>
+                In the spirit of ideas worth spreading, TEDx is a program of local, self-organized
+                events that bring people together to share a TED-like experience. At a TEDx event,
+                TED Talks video and live speakers combine to spark deep discussion and connection in
+                a small group. These local, self-organized events are branded TEDx, where x =
+                independently organized TED event. The TED Conference provides general guidance for
+                the TEDx program, but individual TEDx events are self-organized. (Subject to certain
+                rules and regulations.)
+              </p>
+              <a href="https://www.ted.com/tedx" target="_blank" rel="noopener noreferrer">
+                Explore the TEDx program <ArrowUpRight size={16} />
+              </a>
+              <p className="form-note">
+                Official organizer wording will be checked against the current TED organizer guide
+                before launch.
+              </p>
+            </div>
+          ) : (
+            <div className="prose-content">
+              <h2>About TED</h2>
+              <p>
+                Read about TED’s mission, programs and global community on its official website.
+              </p>
+              <a
+                href="https://www.ted.com/about/our-organization"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                About TED <ArrowUpRight size={16} />
+              </a>
+              <p className="form-note">
+                Official About TED text is pending verification from the organizer guide.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
+  );
 }
 export function SponsorsPage() {
- return <><PageIntro label="BUILD SOMETHING MEANINGFUL" title="Possibility needs partners." description="Be part of the ideas shaping what comes next at TEDxFUTMinna 2026."/><section className="section-wrap"><div className="announcement-panel"><Users size={36}/><h2>Let’s shape tomorrow, together.</h2><p>Our sponsor lineup is to be announced.<br/>Partnership enquiries will open when the official contact is confirmed.</p><span className="small-label">SPONSORSHIP CONTACT COMING SOON</span></div></section></>;
+  return (
+    <>
+      <PageIntro
+        label="BUILD SOMETHING MEANINGFUL"
+        title="Possibility needs partners."
+        description="Be part of the ideas shaping what comes next at TEDxFUTMinna 2026."
+      />
+      <section className="section-wrap">
+        <div className="announcement-panel">
+          <Users size={36} />
+          <h2>Let’s shape tomorrow, together.</h2>
+          <p>
+            Our sponsor lineup is to be announced.
+            <br />
+            Partnership enquiries will open when the official contact is confirmed.
+          </p>
+          <span className="small-label">SPONSORSHIP CONTACT COMING SOON</span>
+        </div>
+      </section>
+    </>
+  );
 }
 export function TeamPage() {
- return <><PageIntro label="THE PEOPLE BEHIND THE DAY" title="Made possible by people." description="Meet the core team behind TEDxFUTMinna 2026. Names, roles and backgrounds will be announced soon."/><section className="section-wrap"><div className="announcement-panel"><Users size={36}/><h2>Our core team, coming soon.</h2><p>Team profiles will include a photo, role and a short background<br/>once the organizers have confirmed their details.</p></div></section></>;
+  return (
+    <>
+      <PageIntro
+        label="THE PEOPLE BEHIND THE DAY"
+        title="Made possible by people."
+        description="Meet the core team behind TEDxFUTMinna 2026. Names, roles and backgrounds will be announced soon."
+      />
+      <section className="section-wrap">
+        <div className="announcement-panel">
+          <Users size={36} />
+          <h2>Our core team, coming soon.</h2>
+          <p>
+            Team profiles will include a photo, role and a short background
+            <br />
+            once the organizers have confirmed their details.
+          </p>
+        </div>
+      </section>
+    </>
+  );
 }
 export function PhotosPage({ gallery = false }: { gallery?: boolean }) {
-  return <><PageIntro label={gallery?'MOMENTS THAT STAY WITH US':'FROM PAST EDITIONS'} title={gallery?'Our community, in focus.':'The ideas live on.'} description={gallery?'The TEDxFUTMinna photo collection. Real people. Real moments.':'A look back at the stages, voices and conversations of earlier TEDxFUTMinna editions.'}/><section className="section-wrap"><EventGallery placement={gallery ? 'gallery' : 'past'}/></section></>;
+  return (
+    <>
+      <PageIntro
+        label={gallery ? "MOMENTS THAT STAY WITH US" : "FROM PAST EDITIONS"}
+        title={gallery ? "Our community, in focus." : "The ideas live on."}
+        description={
+          gallery
+            ? "The TEDxFUTMinna photo collection. Real people. Real moments."
+            : "A look back at the stages, voices and conversations of earlier TEDxFUTMinna editions."
+        }
+      />
+      <section className="section-wrap">
+        <EventGallery placement={gallery ? "gallery" : "past"} />
+      </section>
+    </>
+  );
 }
 const faqs = [
- ['When is TEDxFUTMinna 2026?','Saturday, 12 December 2026. The start time has not yet been confirmed.'],
- ['Where will the event take place?','At FUTMinna campus in Minna, Nigeria. The exact venue will be revealed soon.'],
- ['How much are tickets?','Early Bird tickets are ₦5,000 until 2 December 2026. Regular tickets are ₦7,500. A small processing fee is added at checkout on Selar.'],
- ['How many seats are available?','There are 100 seats for TEDxFUTMinna 2026.'],
- ['Who are the speakers?','Eight speakers from seven fields. Names and talk details will be announced soon.'],
- ['What can I expect on the day?','Speaker talks, TED Talk screenings, poetry, spoken word, dance and networking with people building what’s next.'],
- ['What is TEDx?','TEDx is a program of local, self-organized events that bring people together to share a TED-like experience. Each TEDx event is independently organized.'],
- ['What about refunds, dress code and age limits?','These policies have not yet been confirmed by the organizers. They will be published here when available.'],
+  [
+    "When is TEDxFUTMinna 2026?",
+    "Saturday, 12 December 2026. The start time has not yet been confirmed.",
+  ],
+  [
+    "Where will the event take place?",
+    "At FUTMinna campus in Minna, Nigeria. The exact venue will be revealed soon.",
+  ],
+  [
+    "How much are tickets?",
+    "Early Bird tickets are ₦5,000 until 2 December 2026. Regular tickets are ₦7,500. A small processing fee is added at checkout on Selar.",
+  ],
+  ["How many seats are available?", "There are 100 seats for TEDxFUTMinna 2026."],
+  [
+    "Who are the speakers?",
+    "Eight speakers from seven fields. Names and talk details will be announced soon.",
+  ],
+  [
+    "What can I expect on the day?",
+    "Speaker talks, TED Talk screenings, poetry, spoken word, dance and networking with people building what’s next.",
+  ],
+  [
+    "What is TEDx?",
+    "TEDx is a program of local, self-organized events that bring people together to share a TED-like experience. Each TEDx event is independently organized.",
+  ],
+  [
+    "What about refunds, dress code and age limits?",
+    "These policies have not yet been confirmed by the organizers. They will be published here when available.",
+  ],
 ];
 export function FaqPage() {
- const [open,setOpen] = useState<number|null>(0);
- return <><PageIntro label="A FEW THINGS WORTH KNOWING" title="Good questions. Clear answers." description="Everything confirmed so far about TEDxFUTMinna 2026."/><section className="section-wrap faq-layout"><div className="faq-list">{faqs.map(([q,a],i)=><div className="faq-item" key={q}><Button variant="ghost" aria-expanded={open===i} aria-controls={`faq-${i}`} onClick={()=>setOpen(open===i?null:i)}>{q}{open===i?<Minus/>:<Plus/>}</Button>{open===i&&<p id={`faq-${i}`}>{a}</p>}</div>)}</div><aside><span className="eyebrow">SEE YOU ON 12 DECEMBER</span><h2>Ready to be there?</h2><p>Your seat at a day of new perspectives.</p><TicketButton large/></aside></section></>;
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <>
+      <PageIntro
+        label="A FEW THINGS WORTH KNOWING"
+        title="Good questions. Clear answers."
+        description="Everything confirmed so far about TEDxFUTMinna 2026."
+      />
+      <section className="section-wrap faq-layout">
+        <div className="faq-list">
+          {faqs.map(([q, a], i) => (
+            <div className="faq-item" key={q}>
+              <Button
+                variant="ghost"
+                aria-expanded={open === i}
+                aria-controls={`faq-${i}`}
+                onClick={() => setOpen(open === i ? null : i)}
+              >
+                {q}
+                {open === i ? <Minus /> : <Plus />}
+              </Button>
+              {open === i && <p id={`faq-${i}`}>{a}</p>}
+            </div>
+          ))}
+        </div>
+        <aside>
+          <span className="eyebrow">SEE YOU ON 12 DECEMBER</span>
+          <h2>Ready to be there?</h2>
+          <p>Your seat at a day of new perspectives.</p>
+          <TicketButton large />
+        </aside>
+      </section>
+    </>
+  );
 }
 export function ContactPage() {
- const [sent,setSent]=useState(false);
- return <><PageIntro label="LET’S START A CONVERSATION" title="An idea? A question? Say hello." description="Connect with the TEDxFUTMinna 2026 community."/><section className="section-wrap contact-layout"><div><span className="eyebrow">GET IN TOUCH</span><h2>We’d love to hear from you.</h2><p>Questions about the event, partnerships or the programme?</p><div className="contact-detail"><Mail/><div><strong>hello@tedxfutminna.example</strong><p>Demo address · official email coming soon</p></div></div><a className="social-text" href="https://www.instagram.com/tedxfutminna/" target="_blank" rel="noopener noreferrer">@TEDxFUTMinna <ArrowUpRight size={18}/></a></div><form className="contact-form" onSubmit={e=>{e.preventDefault();setSent(true);}}><label>Your name<input required placeholder="Full name" autoComplete="name"/></label><label>Email address<input required type="email" placeholder="you@example.com" autoComplete="email"/></label><label>Message<textarea required rows={5} placeholder="What’s on your mind?"/></label><Button variant="ticket" size="hero" type="submit">{sent?'Demo message reviewed':'Send message'}{sent?<Check/>:<ArrowUpRight/>}</Button><p className="form-note" role="status">{sent?'Demo preview — no message has been sent or saved.':'Demo form · messages are not sent yet.'}</p></form></section></>;
+  const [sent, setSent] = useState(false);
+  return (
+    <>
+      <PageIntro
+        label="LET’S START A CONVERSATION"
+        title="An idea? A question? Say hello."
+        description="Connect with the TEDxFUTMinna 2026 community."
+      />
+      <section className="section-wrap contact-layout">
+        <div>
+          <span className="eyebrow">GET IN TOUCH</span>
+          <h2>We’d love to hear from you.</h2>
+          <p>Questions about the event, partnerships or the programme?</p>
+          <div className="contact-detail">
+            <Mail />
+            <div>
+              <strong>hello@tedxfutminna.example</strong>
+              <p>Demo address · official email coming soon</p>
+            </div>
+          </div>
+          <a
+            className="social-text"
+            href="https://www.instagram.com/tedxfutminna/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @TEDxFUTMinna <ArrowUpRight size={18} />
+          </a>
+        </div>
+        <form
+          className="contact-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setSent(true);
+          }}
+        >
+          <label>
+            Your name
+            <input required placeholder="Full name" autoComplete="name" />
+          </label>
+          <label>
+            Email address
+            <input required type="email" placeholder="you@example.com" autoComplete="email" />
+          </label>
+          <label>
+            Message
+            <textarea required rows={5} placeholder="What’s on your mind?" />
+          </label>
+          <Button variant="ticket" size="hero" type="submit">
+            {sent ? "Demo message reviewed" : "Send message"}
+            {sent ? <Check /> : <ArrowUpRight />}
+          </Button>
+          <p className="form-note" role="status">
+            {sent
+              ? "Demo preview — no message has been sent or saved."
+              : "Demo form · messages are not sent yet."}
+          </p>
+        </form>
+      </section>
+    </>
+  );
 }
 export function ConductPage() {
- return <><PageIntro label="A RESPECTFUL SPACE FOR IDEAS" title="Code of conduct." description="TEDxFUTMinna 2026 community guidelines."/><section className="section-wrap prose-content"><h2>Organizer policy to be announced.</h2><p>The team’s official code of conduct will be published here once confirmed.</p></section></>;
+  return (
+    <>
+      <PageIntro
+        label="A RESPECTFUL SPACE FOR IDEAS"
+        title="Code of conduct."
+        description="TEDxFUTMinna 2026 community guidelines."
+      />
+      <section className="section-wrap prose-content">
+        <h2>Organizer policy to be announced.</h2>
+        <p>The team’s official code of conduct will be published here once confirmed.</p>
+      </section>
+    </>
+  );
 }
