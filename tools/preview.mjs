@@ -49,6 +49,6 @@ createServer(async (req, res) => {
     res.writeHead(500, { "content-type": "text/plain" });
     res.end(error instanceof Error ? (error.stack ?? error.message) : String(error));
   }
-}).listen(port, "127.0.0.1", () => {
-  console.log(`http://127.0.0.1:${port}/`);
+}).listen(port, "0.0.0.0", () => {
+  console.log(`http://0.0.0.0:${port}/`);
 });

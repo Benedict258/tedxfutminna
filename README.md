@@ -49,6 +49,8 @@ Vercel’s current TanStack Start and Nitro docs deploy this setup with zero con
 2. Framework preset: **TanStack Start** (Nitro is also listed). Build command: `npm run build`. Leave Output Directory unset.
 3. Set `VITE_SITE_URL` in the host's environment settings when a domain exists. The site builds when that value is missing; canonical URLs, the sitemap, `robots.txt` and event structured data gain the origin only after it is set.
 
+`GET /health` returns `ok` and does not render a page. GitHub Actions pings that URL every 5 minutes when the repository variable `PING_URL` is set to `https://<service>.onrender.com/health`. Scheduled workflows run from the default branch only.
+
 ## Environment variables
 
 No environment variables are required to run the site. Optional values can be set in a local `.env` file (never commit it); see `.env.example` for the names.
