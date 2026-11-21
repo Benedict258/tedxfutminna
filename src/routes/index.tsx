@@ -19,7 +19,7 @@ import {
   SpeakerCards,
   TicketButton,
 } from "@/components/event-motion";
-import { event, pageHead, siteUrl, ogImage } from "@/lib/event";
+import { event, eventOffers, pageHead, siteUrl, ogImage } from "@/lib/event";
 import themeLight from "@/assets/theme-light-lettering.png";
 import themeDark from "@/assets/theme-dark-lettering.png";
 import { EventGallery } from "@/components/event-gallery";
@@ -41,7 +41,7 @@ const eventStructuredData = {
   },
   image: [ogImage],
   url: `${siteUrl}/`,
-  offers: { "@type": "Offer", url: event.ticketUrl, price: "5000", priceCurrency: "NGN" },
+  offers: eventOffers(),
 };
 
 export const Route = createFileRoute("/")({

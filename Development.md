@@ -1,31 +1,41 @@
-# Asset development
+# Development record
 
-- Official logo: uploaded PNG now replaces the shared text stand-in in header, footer and intro; transparent margins cropped without altering lettering. Kept on solid white in both display modes because the supplied place-name lettering is black. Original visible artwork is only 217×24px; larger placements need a higher-resolution or vector original. Favicon derived from the same supplied pixels.
-- Ribbon variant 01: folded red SVG ribbon, created in code to remain editable and animate smoothly; awaiting review in the prototype.
-- Flip calendar and countdown: date-only visual objects, created in code with reduced-motion support.
-- Speaker silhouettes: neutral announcement states; no invented portraits or names.
-- Event photographs, batch 01: nine organizer uploads reviewed; eight prepared as 480/960/1920px WebP versions with wide and portrait variants, awaiting contact-sheet approval before website placement. Original pixels are not retouched; group portrait layouts preserve all people with black margins. Speaker-group and community-group photos contain sponsor logos and are Gallery only. The TED Talk screening photo is excluded. Review sheets and the processed package are in Files under event-photos; no photos have been added to the website yet.
-- Official About TED and About TEDx wording: current organizer guide could not be retrieved; exact wording verification remains pending before launch.
-- Event photographs, batch 02: five additional organizer uploads processed into 25 WebP variants and three inspected review sheets, awaiting approval before website placement. Group-with-red-X is Gallery only because of sponsor logos; wide-stage-and-audience has softer stage detail and is intended for an overview rather than a close-up. Original images remain untouched. Review sheets and package are in Files under event-photos.
-- Official theme artwork: both supplied PNGs have transparent backgrounds; variant 01 has white lettering and variant 02 has black lettering. Cropped transparent margins, preserved artwork pixels and stored CDN pointers. Homepage theme section uses black lettering on light and white lettering on dark, separate from the event logo.
-- Photo batches 01 and 02 approved by organizer: 13 photos now served through CDN pointers in three responsive widths. Homepage shows four unrestricted photos; Past Events shows ten; Gallery shows all thirteen with an accessible lightbox, arrow navigation and touch swipe. The three sponsor-bearing group photos appear only in Gallery. TED Talk screening remains excluded. Approval supersedes the pending status recorded above.
+Facts below come from git history and from the files in this working tree. Superseded notes are not kept as current status.
 
-# Deployment preparation log
+## Published history
 
-## Part 1 — remove platform traces
+- `4dd2bc6` (2026-11-16): TanStack Start template `tanstack_start_ts`.
+- `7fe7ed7` through `36ebeca` (2026-11-17): eight commits titled "Changes" built the event site before any photos were placed.
+- `774f274` (2026-11-17): proceeded without photos. Added the event constants, the content pages, and the ticket-date tests.
+- `6efb947` (2026-11-17): recorded the first photo batch as processed and still awaiting placement.
+- `4a67bc2` (2026-11-17): recorded a second photo batch and pending branding uploads.
+- `ebee110` (2026-11-17): added the logo and both theme artworks as platform asset pointers, and replaced `favicon.ico` with `favicon.png`.
+- `1d39d16` (2026-11-17): the message repeats the logo note; the diff only adds `.lovable/north-star/north-star.md`.
+- `189741d` (2026-11-17): placed 13 approved photos (39 width variants) through asset pointers, with Gallery-only flags for `speakers-group`, `community-group`, and `group-with-red-x`, plus the photo viewer.
+- `4912c73` (2026-11-17): README update. This commit is `origin/main`.
 
-- Deleted the `.lovable/` editor metadata folder — editor-only state, not part of the site.
-- Deleted `src/lib/lovable-error-reporting.ts` and its import/use in `src/routes/__root.tsx` — it forwarded errors to platform telemetry hooks that no longer exist here.
-- Removed the Lovable Cloud middleware comment in `src/start.ts` — it documented an integration this project never had.
-- Removed the platform instruction block from `AGENTS.md` — project rules no longer live in that file; kept and updated the architecture rules below it.
-- Updated the `AGENTS.md` asset rule from "CDN pointers" to "local asset files in src/assets" — assets now ship with the repo instead of a hosting-specific proxy.
-- `package.json`: renamed `tanstack_start_ts` → `tedxfutminna-2026`, set version `1.0.0` and a real description — identify the project.
-- `package.json`: removed the `@lovable.dev/vite-tanstack-config` devDependency — platform build wrapper.
-- `package.json`: removed the `build:dev` script — it only existed for platform sandbox previews.
-- Rewrote `vite.config.ts` on plain Vite plugins (`@tailwindcss/vite`, `vite-tsconfig-paths`, `tanstackStart`, `nitro`, `@vitejs/plugin-react`) — same build behaviour without the platform wrapper; Nitro preset changed from `cloudflare-module` to `vercel` because Vercel is the chosen host.
-- Downloaded all 42 referenced images from the platform preview host into `src/assets/` — the old `/__l5e/...` paths only resolve on platform hosting and would 404 on Vercel.
-- Switched `event-photos.ts`, `site-shell.tsx` and `index.tsx` from `.asset.json` pointer imports to direct local image imports — images are bundled and content-hashed by Vite.
-- Deleted the 42 `.asset.json` pointer files — platform asset metadata, no longer meaningful.
-- Rewrote `README.md` — removed template/platform text and documented install, run, build, deploy and environment variables.
-- Deleted `bunfig.toml` (only held platform package exclusions; bun is not used here) and `bun.lock` — moving to a single npm lockfile.
-- Started a fresh `npm install` to generate `package-lock.json` — one lockfile type matching the available toolchain.
+## Current facts
+
+- The event is Saturday, 12 December 2026. Early Bird is ₦5,000 through 2 December 2026 in Africa/Lagos (boundary `2026-12-03T00:00:00+01:00`). Regular is ₦7,500 after that. Capacity is 100. No start time is published. Checkout defaults to `https://selar.com/z992991r2q`.
+- The logo file is 241×48 pixels and 7,006 bytes. An earlier note said 217×24; that size is not this file.
+- Home shows four unrestricted photos. Past Events shows the ten photos that are not Gallery-only. Gallery shows all thirteen. The TED Talk screening photo is not in the repository.
+- Team profiles, sponsors, the exact venue, the start time, the code of conduct, and verified About TED wording are still unpublished. `roadmap.md` still lists team, sponsors, and that wording as open.
+- Contact and newsletter forms stay demo-only and do not send or save a message.
+
+## Snapshot `725fd6e` (2026-11-21)
+
+Uncommitted work was saved on `pre-cursor-snapshot` before this cleanup. That commit did the following, which the previous log stopped short of recording:
+
+- Removed `.lovable/`, `src/lib/lovable-error-reporting.ts`, `@lovable.dev/vite-tanstack-config`, `bun.lock`, and `bunfig.toml`.
+- Replaced the 42 `.asset.json` pointers with local image files and pointed the imports at those files.
+- Rewrote `vite.config.ts` onto plain Vite plugins with the Nitro `vercel` preset, and turned route code-splitting off because this checkout path contains an apostrophe.
+- Removed unused interface components and the packages only those files imported, including `framer-motion` and `@tanstack/react-query`. Motion moved into `src/styles.css`, which grew from 166 lines to 2,032.
+- Added self-hosted Inter files, `public/sitemap.xml`, `public/robots.txt`, `public/og-image.png`, `package-lock.json`, and `src/components/event-lightbox.tsx`.
+- Set `siteUrl` to `https://tedxfutminna.com` for canonical and social tags. Page titles use `TEDxFUTMinna 2026 | {title}`.
+- Homepage JSON-LD listed one offer at 5,000 NGN.
+
+## Changes on `cursor-cleanup`
+
+- Rewrote this file from git history — the previous text still said the logo was 217×24, still described CDN pointers as current, and stopped before most of snapshot `725fd6e`.
+- Homepage JSON-LD now lists Early Bird (5,000 NGN through 2026-12-02) and Regular (7,500 NGN from 2026-12-03) — the previous single 5,000 offer stayed wrong after Early Bird closed.
+- Restricted the latin-ext `@font-face` to U+20A6 and corrected `tools/fonts/subset.mjs` so its comment names `public/fonts/` — that file only contains the naira sign, and the comment named `src/assets/fonts/`.

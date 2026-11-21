@@ -15,6 +15,26 @@ export const event = {
 export function ticketPrice(now: number) {
   return now < event.earlyBirdEnd ? event.earlyPrice : event.regularPrice;
 }
+export function eventOffers() {
+  return [
+    {
+      "@type": "Offer" as const,
+      name: "Early Bird",
+      url: event.ticketUrl,
+      price: String(event.earlyPrice),
+      priceCurrency: "NGN",
+      priceValidUntil: "2026-12-02",
+    },
+    {
+      "@type": "Offer" as const,
+      name: "Regular",
+      url: event.ticketUrl,
+      price: String(event.regularPrice),
+      priceCurrency: "NGN",
+      validFrom: "2026-12-03",
+    },
+  ];
+}
 export function remainingTime(now: number, target = event.eventBoundary) {
   const seconds = Math.max(0, Math.floor((target - now) / 1000));
   return [

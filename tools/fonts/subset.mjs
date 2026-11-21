@@ -1,6 +1,6 @@
 // One-time/dev tool: subsets the full Inter latin-ext woff2 down to the only
-// glyph this site renders from that range (the naira sign). Originals in this
-// folder are the untouched sources; output goes to src/assets/fonts/.
+// glyph this site renders from that range (the naira sign, U+20A6). Originals
+// in this folder are the untouched sources; output goes to public/fonts/.
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
