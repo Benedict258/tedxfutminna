@@ -1,4 +1,6 @@
-export const siteUrl = "https://tedxfutminna.com";
+import { normalizeSiteUrl, pageMetadata } from "./site-url";
+
+export const siteUrl = normalizeSiteUrl(import.meta.env["VITE_SITE_URL"]);
 
 export const event = {
   name: "TEDxFUTMinna 2026",
@@ -57,26 +59,6 @@ export const navigation = [
   { label: "FAQ", to: "/faq" },
   { label: "Contact", to: "/contact" },
 ] as const;
-export const ogImage = `${siteUrl}/og-image.png`;
 export function pageHead(title: string, description: string, path: string) {
-  const fullTitle = `TEDxFUTMinna 2026 | ${title}`;
-  const url = `${siteUrl}${path}`;
-  return {
-    meta: [
-      { title: fullTitle },
-      { name: "description", content: description },
-      { property: "og:title", content: fullTitle },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "TEDxFUTMinna 2026" },
-      { property: "og:url", content: url },
-      { property: "og:image", content: ogImage },
-      { property: "og:image:width", content: "1200" },
-      { property: "og:image:height", content: "630" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@TEDxFUTMinna" },
-      { name: "twitter:image", content: ogImage },
-    ],
-    links: [{ rel: "canonical", href: url }],
-  };
+  return pageMetadata(siteUrl, title, description, path);
 }

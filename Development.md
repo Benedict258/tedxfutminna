@@ -39,3 +39,10 @@ Uncommitted work was saved on `pre-cursor-snapshot` before this cleanup. That co
 - Rewrote this file from git history — the previous text still said the logo was 217×24, still described CDN pointers as current, and stopped before most of snapshot `725fd6e`.
 - Homepage JSON-LD now lists Early Bird (5,000 NGN through 2026-12-02) and Regular (7,500 NGN from 2026-12-03) — the previous single 5,000 offer stayed wrong after Early Bird closed.
 - Restricted the latin-ext `@font-face` to U+20A6 and corrected `tools/fonts/subset.mjs` so its comment names `public/fonts/` — that file only contains the naira sign, and the comment named `src/assets/fonts/`.
+- Read the public origin from `VITE_SITE_URL` for the sitemap, robots.txt, canonical tags and JSON-LD — no domain is chosen yet, and an empty value still builds.
+- Removed the domain line from `public/og-image.png` — the image stays valid whichever origin is chosen later.
+- Turned route code-splitting back on — this checkout path no longer contains an apostrophe, so the splitter no longer emits a broken import path.
+- Removed the Wrangler and Cloudflare entries from `.gitignore` — this site is not deployed with Wrangler.
+- Restored `routeTree.gen.ts` in `.prettierignore` — that file is generated and should not be reformatted by hand.
+- Upgraded `vite` from 8.1.5 to 8.3.8 — 8.1.5 was inside the Windows launch-editor advisory range, and the newer release reports no advisories.
+- Added the `.ts` extension on the Vite config import of `site-url` — Vite 8.3 warns that the native config loader will reject an extensionless import.

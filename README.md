@@ -37,18 +37,21 @@ npm run build     # production build (Nitro preset: vercel)
 npm run preview   # serve the production build locally
 ```
 
-## Deploy (Vercel)
+## Deploy
 
-1. Push the repository to a Git provider and import it in Vercel (framework preset: **Other**).
-2. Build command: `npm run build` — Output: `.vercel/output` (produced automatically by the Nitro `vercel` preset).
-3. Deploy. Nitro emits the Vercel Build Output API structure (SSR function + static assets), so deep links such as `/tickets` are server-rendered and never 404 on refresh.
+The production build uses the Nitro `vercel` preset already configured in `vite.config.ts`. The public domain is not chosen yet.
+
+1. Import the repository in the host (on Vercel, framework preset: **Other**).
+2. Build command: `npm run build`. Output: `.vercel/output` when the host reads the Nitro build.
+3. Set `VITE_SITE_URL` in the host's environment settings, then deploy. The site builds when that value is missing; canonical URLs, the sitemap, `robots.txt` and event structured data gain the origin only after it is set.
 
 ## Environment variables
 
-No environment variables are required to run the site. Optional overrides can be set in a local `.env` file (never commit it); see `.env.example` for the names.
+No environment variables are required to run the site. Optional values can be set in a local `.env` file (never commit it); see `.env.example` for the names.
 
 | Name              | Purpose                                                                                                 |
 | ----------------- | ------------------------------------------------------------------------------------------------------- |
+| `VITE_SITE_URL`   | Public site origin. Set `VITE_SITE_URL` in the host's environment settings before a public deploy.     |
 | `VITE_TICKET_URL` | Overrides the ticket checkout URL (defaults to the confirmed Selar link baked into `src/lib/event.ts`). |
 
 ## Project layout

@@ -19,7 +19,7 @@ import {
   SpeakerCards,
   TicketButton,
 } from "@/components/event-motion";
-import { event, eventOffers, pageHead, siteUrl, ogImage } from "@/lib/event";
+import { event, eventOffers, pageHead, siteUrl } from "@/lib/event";
 import themeLight from "@/assets/theme-light-lettering.png";
 import themeDark from "@/assets/theme-dark-lettering.png";
 import { EventGallery } from "@/components/event-gallery";
@@ -39,8 +39,7 @@ const eventStructuredData = {
     name: "FUTMinna campus",
     address: { "@type": "PostalAddress", addressLocality: "Minna", addressCountry: "NG" },
   },
-  image: [ogImage],
-  url: `${siteUrl}/`,
+  ...(siteUrl ? { url: `${siteUrl}/`, image: [`${siteUrl}/og-image.png`] } : {}),
   offers: eventOffers(),
 };
 
